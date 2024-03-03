@@ -1,0 +1,4 @@
+failBack=com.yupi.yurpc.fault.tolerant.FailBackTolerantStrategy
+failFast=com.yupi.yurpc.fault.tolerant.FailFastTolerantStrategy
+failOver=com.yupi.yurpc.fault.tolerant.FailOverTolerantStrategy
+failSafe=com.yupi.yurpc.fault.tolerant.FailSafeTolerantStrategy
