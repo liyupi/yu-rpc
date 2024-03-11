@@ -158,7 +158,7 @@ public class ZooKeeperRegistry implements Registry {
     }
 
     @Override
-    public void destory() {
+    public void destroy() {
         log.info("当前节点下线");
         // 下线节点（这一步可以不做，因为都是临时节点，服务下线，自然就被删掉了）
         for (String key : localRegisterNodeKeySet) {

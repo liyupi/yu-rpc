@@ -189,7 +189,7 @@ public class EtcdRegistry implements Registry {
     }
 
     @Override
-    public void destory() {
+    public void destroy() {
         System.out.println("当前节点下线");
         // 下线节点
         // 遍历本节点所有的 key
