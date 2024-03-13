@@ -25,11 +25,12 @@
 
 目录结构：
 
-![img](https://pic.yupi.icu/1/(null))
+![](./docs/tutorial.jpg)
+
 
 详细的保姆级文字教程：
 
-![img](https://pic.yupi.icu/1/(null)-20240312151554188.(null))
+![](./docs/structure.jpg)
 
 
 
