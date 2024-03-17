@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: yu-rpc-consumer
+
+
+rpc:
+  name: yu-rpc-[application.yml]
+  serverHost: localhost
+  serverPort: 9999
+  version: 1.0.0
+  mock: false
+  serializer: hessian
+  registryConfig:
+    registry: etcd
+    address: http://localhost:2380
+  loadBalancer: roundRobin
+  retryStrategy: fixedInterval

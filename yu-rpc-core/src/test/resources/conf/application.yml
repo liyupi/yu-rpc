@@ -1,5 +1,5 @@
 rpc:
-  name: yu-rpc-[yurpc.yaml]
+  name: yu-rpc-[conf/application.yml]
   serverHost: localhost
   serverPort: 8888
   version: 1.0.0

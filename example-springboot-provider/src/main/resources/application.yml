@@ -1,0 +1,13 @@
+rpc:
+  name: yu-rpc-[application.yml]
+  serverHost: localhost
+  serverPort: 9999
+  version: 1.0.0
+  mock: false
+  serializer: hessian
+  loadBalancer: roundRobin
+  retryStrategy: fixedInterval
+  tolerantStrategy: failFast
+  registryConfig:
+    registry: etcd
+    address: http://localhost:2380

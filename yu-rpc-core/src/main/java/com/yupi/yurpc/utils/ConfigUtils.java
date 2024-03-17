@@ -13,8 +13,8 @@ import lombok.extern.slf4j.Slf4j;
  * 配置工具类
  * <p>
  * 加载配置文件规则：
- * <p>conf/yurpc.properties > yurpc.properties > conf/yurpc.yaml > yurpc.yaml > conf/yurpc.yml >
- * yurpc.yml</p>
+ * <p>conf/application.properties > application.properties > conf/application.yaml >
+ * application.yaml > conf/application.yml > application.yml</p>
  *
  * @author <a href="https://github.com/liyupi">程序员鱼皮</a>
  * @learn <a href="https://codefather.cn">程序员鱼皮的编程宝典</a>
@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ConfigUtils {
 
     private static final String BASE_PATH_DIR = "conf/";
-    private static final String BASE_CONF_FILE_NAME = "yurpc";
+    private static final String BASE_CONF_FILE_NAME = "application";
     private static final String PROPERTIES_FILE_EXT = ".properties";
     private static final String YAML_FILE_EXT = ".yaml";
     private static final String YML_FILE_EXT = ".yml";
@@ -98,7 +98,7 @@ public class ConfigUtils {
      * @return props
      */
     public static <T> T loadYaml(Class<T> clazz, String prefix, String env) {
-        // 读取 yaml 文件
+        // 读取 yaml 文件，优先读取 conf/application-{env}.yaml
         try {
             return doLoadYaml(clazz, BASE_PATH_DIR + BASE_CONF_FILE_NAME, prefix, env,
                     YAML_FILE_EXT);
@@ -106,13 +106,14 @@ public class ConfigUtils {
             log.warn("Not exists yaml conf file in [{}], will load yaml file from classpath",
                     BASE_PATH_DIR);
         }
+        // 加载 application-{env}.yaml 文件
         try {
             return doLoadYaml(clazz, BASE_CONF_FILE_NAME, prefix, env,
                     YAML_FILE_EXT);
         } catch (NoResourceException e) {
             log.warn("Not exists yaml conf file in [{}], will load yml file", BASE_PATH_DIR);
         }
-        // 读取 yml 文件
+        // 读取 yml 文件，优先读取 conf/application-{env}.yml
         try {
             return doLoadYaml(clazz, BASE_PATH_DIR + BASE_CONF_FILE_NAME, prefix, env,
                     YML_FILE_EXT);
@@ -120,6 +121,7 @@ public class ConfigUtils {
             log.warn("Not exists yml conf file in [{}], will load yml file from classpath",
                     BASE_PATH_DIR);
         }
+        // 加载 application-{env}.yml 文件
         try {
             return doLoadYaml(clazz, BASE_CONF_FILE_NAME, prefix, env,
                     YML_FILE_EXT);
