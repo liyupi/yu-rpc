@@ -18,6 +18,8 @@
 > 开始学习或了解详情：[手写 RPC 框架（24 年最新）](https://yuyuanweb.feishu.cn/wiki/EweIwSYsXiEvCDkzS8BcTiAonyc)
 >
 > 开源地址：https://github.com/liyupi/yu-rpc
+>
+> [教程第一章可免费学习](https://www.code-nav.cn/course/1768543954720022530/section/1768545847093518337)
 
 
 
