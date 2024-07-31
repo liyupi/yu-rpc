@@ -38,9 +38,15 @@ public class EtcdRegistry implements Registry {
     private final Set<String> localRegisterNodeKeySet = new HashSet<>();
 
     /**
-     * 注册中心服务缓存
+     * 注册中心服务缓存（只支持单个服务缓存，已废弃，请使用下方的 RegistryServiceMultiCache）
      */
+    @Deprecated
     private final RegistryServiceCache registryServiceCache = new RegistryServiceCache();
+
+    /**
+     * 注册中心服务缓存（支持多个服务键）
+     */
+    private final RegistryServiceMultiCache registryServiceMultiCache = new RegistryServiceMultiCache();
 
     /**
      * 正在监听的 key 集合
@@ -93,7 +99,10 @@ public class EtcdRegistry implements Registry {
     @Override
     public List<ServiceMetaInfo> serviceDiscovery(String serviceKey) {
         // 优先从缓存获取服务
-        List<ServiceMetaInfo> cachedServiceMetaInfoList = registryServiceCache.readCache();
+        // 原教程代码，不支持多个服务同时缓存
+        // List<ServiceMetaInfo> cachedServiceMetaInfoList = registryServiceCache.readCache();
+        // 优化后的代码，支持多个服务同时缓存
+        List<ServiceMetaInfo> cachedServiceMetaInfoList = registryServiceMultiCache.readCache(serviceKey);
         if (cachedServiceMetaInfoList != null) {
             return cachedServiceMetaInfoList;
         }
@@ -120,7 +129,10 @@ public class EtcdRegistry implements Registry {
                     })
                     .collect(Collectors.toList());
             // 写入服务缓存
-            registryServiceCache.writeCache(serviceMetaInfoList);
+            // 原教程代码，不支持多个服务同时缓存
+            // registryServiceCache.writeCache(serviceMetaInfoList);
+            // 优化后的代码，支持多个服务同时缓存
+            registryServiceMultiCache.writeCache(serviceKey, serviceMetaInfoList);
             return serviceMetaInfoList;
         } catch (Exception e) {
             throw new RuntimeException("获取服务列表失败", e);
@@ -177,7 +189,11 @@ public class EtcdRegistry implements Registry {
                         // key 删除时触发
                         case DELETE:
                             // 清理注册服务缓存
-                            registryServiceCache.clearCache();
+                            // 原教程代码，不支持多个服务同时缓存
+                            // registryServiceCache.clearCache();
+                            // 优化后的代码，支持多个服务同时缓存
+                            // fixme 这里需要改为 serviceKey，而不是 serviceNodeKey
+                            registryServiceMultiCache.clearCache(serviceNodeKey);
                             break;
                         case PUT:
                         default:
