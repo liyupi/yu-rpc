@@ -20,8 +20,9 @@ public class RegistryConfig {
 
     /**
      * 注册中心地址
+     * 注意：2379是etcd客户端通信端口，2380是集群内部通信端口
      */
-    private String address = "http://localhost:2380";
+    private String address = "http://localhost:2379";
 
     /**
      * 用户名
